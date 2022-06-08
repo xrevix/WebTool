@@ -1,14 +1,6 @@
 @echo off
-Title WebTool Installing ....
+Title WebTool
 color 5
-pip install pystyle
-pip install time
-pip install colorama
-pip install os
-pip install requests
-pip install json
-pip install threading
-pip install random
-pip install re
+pip install -r requirements.txt
 cls
 python Webtool.py
