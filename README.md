@@ -12,7 +12,7 @@
 # <a id="Setup"></a>🔗 〢 Setup
 
 ```
-Git https://github.com/xrevix/Webtool.git
+Git clone https://github.com/xrevix/Webtool
 cd WebTool
 Start.bat
 Enjoy!😘
