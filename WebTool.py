@@ -4,23 +4,18 @@
 from pystyle import *
 from time import sleep
 from colorama import Fore
-import os,requests
+import os,requests,time
 #
 from app.wd import WebhookDeleter
 from app.wi import WebhookInfo
 from app.ws import WebhookSpammer
-from app.plugin.Proxy import proxy_scrape, proxy
+from app.plugin.Proxy import proxy_scrape, getTempDir
 #
 
-def getTempDir():
-    system = os.name
-    if system == 'nt':
-        return os.getenv('temp')
-    elif system == 'posix':
-        return '/tmp/'
+
         
 def clear():
-    if os.name in ('nt', 'dos'): #Check OS name for using correct command
+    if os.name in ('nt', 'dos'): 
         try:
             os.system("cls")
         except:
@@ -34,14 +29,24 @@ def clear():
 def validateWebhook(hook, mode):
     try:
         responce = requests.get(hook)
+        if responce.status_code == "200" or responce.status_code == "204":
+            try:
+                if mode == 1:
+                    print(f"{Fore.GREEN}                        [+] Valid webhook! ({name})")
+                    return
+            except:
+                    input(f"{Fore.RED}                        [-] Invalid Webhook.{responce.status_code}{Fore.RESET}")
+                    sleep(0.3)
+                    WebTool()  
+        if responce.status_code == 404:
+            input(f"{Fore.RED}                        [-] Invalid Webhook.{Fore.RESET}")
+            sleep(0.3)
+            WebTool()  
     except (requests.exceptions.MissingSchema, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
-        input(f"\n{Fore.RED}                        [-] Invalid Webhook.{Fore.RESET}")
+        input(f"{Fore.RED}                        [-] Invalid Webhook.{Fore.RESET}")
         sleep(0.3)
         WebTool()
-    if responce.status_code == 404:
-        input(f"\n{Fore.RED}                        [-] Invalid Webhook.{Fore.RESET}")
-        sleep(0.3)
-        WebTool()    
+  
     try:
         name = responce.json()["name"]
     except:
@@ -102,11 +107,26 @@ def WebTool():
             if input == '4': 
                 web = Write.Input(f"""                        [?] Webhook Link: """, Colors.blue_to_purple, interval=0.005)
                 validateWebhook(web, 1)
-                WebhookDeleter(web)
+                delete = Write.Input(f"""                        [?] Are You Sure You Want To Delete Webhook? y/n """, Colors.blue_to_purple, interval=0.005)
+                if delete == "y" or delete == "yes" or delete == "Yes" or delete == "Y":
+                    WebhookDeleter(web)
+                    WebTool()
+                else:
+                    time.sleep(0.2)
+                    WebTool()
+
+            if input == '5':
+                Write.Input(f"""                        [?] Coming Soon.. """, Colors.blue_to_purple, interval=0.005)
                 WebTool()
 
             if input == '6':
-                os._exit(0)
+                exit = Write.Input(f"""                        [?] Are You Sure You Want To Exit? y/n """, Colors.blue_to_purple, interval=0.005)
+                if exit == "y" or exit == "yes" or exit == "Yes" or exit == "Y":
+                  os._exit(0)
+                else:
+                    time.sleep(0.2)
+                    WebTool()
+
             
             if input == "":
                 WebTool()
@@ -114,6 +134,6 @@ def WebTool():
             else:
                 WebTool()
 
-with open(getTempDir()+"\\WebTool_Proxies", 'w'): pass
+with open(getTempDir()+"\\WebTool_Proxies.txt", 'w'): pass
 proxy_scrape()
 WebTool()

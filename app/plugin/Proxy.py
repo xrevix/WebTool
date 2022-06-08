@@ -1,3 +1,6 @@
+###  Made BY xrevix [ ! xrevix#5241 ]
+###  https://github.com/xrevix
+
 from colorama import Fore
 import os,requests,random,threading,re,time
 
@@ -8,11 +11,13 @@ def getTempDir():
     elif system == 'posix':
         return '/tmp/'
 
+
 def proxy_scrape(): 
     proxieslog = []
     startTime = time.time()
-    temp = getTempDir()+"\\WebTool_Proxies"
-    print(f"{Fore.CYAN}Please Wait im Scraping Proxy For You!{Fore.RESET}")
+    temp = getTempDir()+"\\WebTool_Proxies.txt"
+    os.system("title WebTool Scraping Proxy For You! - Made By ! xrevix#5241" if os.name == 'nt' else '' )
+    print(f"{Fore.CYAN}Please Wait Im Scraping Proxy For You!{Fore.RESET}")
 
     def fetchProxies(url, custom_regex):
         global proxylist
@@ -68,10 +73,9 @@ def proxy_scrape():
                 f.write(f"{proxy}\n")
     execution_time = (time.time() - startTime)
     print(f"{Fore.CYAN}Done! Scraped {len(proxies)} Proxy! | {execution_time} Ms")
-    time.sleep(0.4)
 
 def proxy():
-    temp = getTempDir()+"\\WebTool_Proxies"
+    temp = getTempDir()+"\\WebTool_Proxies.txt"
     if os.stat(temp).st_size == 0:
         proxy_scrape()
     proxies = open(temp).read().split('\n')
@@ -82,4 +86,4 @@ def proxy():
         fp.seek(0)
         fp.truncate()
         fp.writelines(lines[1:])
-        return ({'http://': f'http://{proxy}', 'https://': f'https://{proxy}'})
+    return ({'http://': f'http://{proxy}', 'https://': f'https://{proxy}'})

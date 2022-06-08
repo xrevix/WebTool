@@ -29,5 +29,5 @@ def WebhookInfo(web):
               else:
                      input(Colorate.Vertical(Colors.red_to_blue, f'''                        [-] Error: {r.status_code}''', 1))
                      return
-       except ( json.decoder.JSONDecodeError ):
+       except json.decoder.JSONDecodeError:
                      input(f'''{Fore.RED}                        [-] No Info Find{Fore.RED}''')
