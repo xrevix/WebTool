@@ -1,5 +1,5 @@
-###  Made BY xrevix [ ! xrevix#5241 ]
-###  https://github.com/xrevix
+###  Made BY xrevix [ Rdimo#6969 ]
+###  https://github.com/Rdimo
 
 from colorama import Fore
 import os,requests,random,threading,re,time
