@@ -8,7 +8,7 @@ import requests,time
 from threading import Thread
 
 proxy_list = []
-    
+with open(getTempDir()+"\\WebTool_Proxies.txt", "w", encoding="utf-8", errors='ignore'): pass
 temp = getTempDir()
 with open(getTempDir()+"\\WebTool_Proxies.txt", 'r') as proxy_file:
             for proxy in proxy_file:
