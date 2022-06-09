@@ -133,7 +133,7 @@ def WebTool():
          
             else:
                 WebTool()
-
+with open(getTempDir()+"\\WebTool_Proxies.txt", "w", encoding="utf-8", errors='ignore'): pass
 with open(getTempDir()+"\\WebTool_Proxies.txt", 'w'): pass
 proxy_scrape()
 WebTool()
